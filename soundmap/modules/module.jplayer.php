@@ -16,8 +16,7 @@ class sm_jPlayer extends SoundMap_Player{
     }
 
     function print_audio_content($files, $id){
-        
-        
+               
         $playlist = FALSE;    
         $total_files = count($files);
     

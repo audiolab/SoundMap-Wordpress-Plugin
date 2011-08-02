@@ -65,8 +65,8 @@ function soundmap_init() {
   register_taxonomy_for_object_type('category', 'marker');
   register_taxonomy_for_object_type('post_tag', 'marker');
   
-  soundmap_check_map_page();
-  
+  _soundmap_load_options();
+  soundmap_check_map_page();  
   soundmap_create_player_instance();
   
   if(!is_admin()){
@@ -77,32 +77,32 @@ function soundmap_init() {
 
 function soundmap_create_player_instance(){
     
-    global $soundmap_Player;
-    
+    global $soundmap_Player, $soundmap;
+        
     $plugins = get_option( 'active_plugins', array() );
     
     if (!is_array($plugins))
         return;
     
-    if(in_array('audio-player/audio-player.php', $plugins) && class_exists('sm_AudioPlayer')){
+    if(in_array('audio-player/audio-player.php', $plugins) && class_exists('sm_AudioPlayer') && $soundmap['player_plugin'] =="audio-player/audio-player.php"){
         //Audio player active
         $soundmap_Player = new sm_AudioPlayer();
         return;
     }
     
-    if(in_array('haiku-minimalist-audio-player/haiku-player.php', $plugins) && class_exists('sm_HaikuPlayer')){
+    if(in_array('haiku-minimalist-audio-player/haiku-player.php', $plugins) && class_exists('sm_HaikuPlayer') && $soundmap['player_plugin'] =='haiku-minimalist-audio-player/haiku-player.php'){
         //Audio player active
         $soundmap_Player = new sm_HaikuPlayer();
         return;
     }
     
-    if(in_array('wp-audio-gallery-playlist/wp-audio-gallery-playlist.php', $plugins) && class_exists('sm_AudioGallery_Player')){
+    if(in_array('wp-audio-gallery-playlist/wp-audio-gallery-playlist.php', $plugins) && class_exists('sm_AudioGallery_Player') && $soundmap['player_plugin'] =='wp-audio-gallery-playlist/wp-audio-gallery-playlist.php'){
         //Audio player active
         $soundmap_Player = new sm_AudioGallery_Player();
         return;
     }
     
-    if(in_array('jplayer/jplayer.php', $plugins) && class_exists('sm_jPlayer')){
+    if(in_array('jplayer/jplayer.php', $plugins) && class_exists('sm_jPlayer') && $soundmap['player_plugin'] =='jplayer/jplayer.php'){
         //Audio player active
         $soundmap_Player = new sm_jPlayer();
         return;
@@ -113,9 +113,21 @@ function soundmap_create_player_instance(){
 function soundmap_check_map_page(){
     global $soundmap;
     $uri = get_uri();
-    if (end($uri) == 'map/'){        
+    $page = $soundmap['map_Page'];
+    if ($page == "[home]"){        
+        // for consistency, check to see if trailing slash exists in URI request
+        if (is_home())
             $soundmap['on_page'] = TRUE;
+
+    }else{
+        if (substr($page, -1)!="/") {
+                $page = $page."/";
+        }
+        if (end($uri) == $page){        
+                $soundmap['on_page'] = TRUE;
+        }        
     }
+
 }
 
 function soundmap_register_scripts(){
@@ -223,24 +235,66 @@ function soundmap_admin_enqueue_scripts() {
     wp_enqueue_script('soundmap-admin');
     wp_enqueue_style('soundmap-admin');
     
+    global $soundmap;
+    
     $params = array();
-    $params['plugin_url'] = WP_PLUGIN_URL . '/soundmap/';
+    $params['plugin_url'] = WP_PLUGIN_URL . '/soundmap/';    
+    $params += $soundmap['origin'];
+    $params ['mapType'] = $soundmap['mapType'];
     
     wp_localize_script('soundmap-admin','WP_Params',$params);
 }
 
 function soundmap_wp_enqueue_scripts() {
+    
+    global $soundmap;
+    
+    $params = array();
+    $params['ajaxurl'] = admin_url( 'admin-ajax.php' );    
+    $params += $soundmap['origin'];
+    $params ['mapType'] = $soundmap['mapType'];
+    
     wp_enqueue_script('soundmap');
-
-    wp_localize_script( 'soundmap', 'WP_Params', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+    wp_localize_script( 'soundmap', 'WP_Params', $params );
 }
 
-function soundmap_save_options(){
+function _soundmap_save_options(){
     
+    $_soundmap = array();
+    global $soundmap;
+    //Load defaults;
+    
+    $_soundmap ['origin']['lat'] = $_POST['soundmap_op_origin_lat'];
+    $_soundmap ['origin']['lng'] = $_POST['soundmap_op_origin_lng'];
+    $_soundmap ['origin']['zoom'] = $_POST['soundmap_op_origin_zoom'];
+    $_soundmap ['mapType'] = $_POST['soundmap_op_origin_type'];
+    $_soundmap ['map_Page'] = $_POST['soundmap_op_page'];
+    if(isset($_POST['soundmap_op_plugin']))
+        $_soundmap ['player_plugin'] = $_POST['soundmap_op_plugin'];
+    
+    update_option('soundmap',maybe_serialize($_soundmap));   
+    $soundmap = wp_parse_args($_soundmap, $soundmap);
 }
 
-function soundmap_load_options(){
+
+function _soundmap_load_options(){
+    $_soundmap = array();
+    global $soundmap;
+    //Load defaults;
+    $defaults = array();
+    $defaults['on_page'] = FALSE;
+    $defaults['origin']['lat'] = 0;
+    $defaults['origin']['lng'] = 0;
+    $defaults['origin']['zoom'] = 10;
+    $defaults['mapType'] = 'ROADMAP';
+    $defaults['map_Page'] = 'map';
+    $defaults['player_plugin'] = "";
     
+    $_soundmap = maybe_unserialize(get_option('soundmap'));
+    
+    $_soundmap = wp_parse_args($_soundmap, $defaults);
+    
+    $soundmap = $_soundmap;
 }
 
 function soundmap_save_post($post_id) {
@@ -406,12 +460,17 @@ function soundmap_attach_file($att, $post_id){
 
 function soundmap_template_redirect(){
     global $soundmap;
+    $page = $soundmap['map_Page'];
+    if ($page == '[home]'){
+        
+    }else{
+        if ($soundmap['on_page']){        
+            if ($theme=soundmap_get_template_include($page))            
+                include ($theme);            
+            exit();
+        }            
+    }
 
-    if ($soundmap['on_page']){        
-        if ($theme=soundmap_get_template_include('map'))            
-            include ($theme);            
-        exit();
-    }    
 }
 
 function soundmap_get_template_include($templ){
@@ -453,10 +512,12 @@ function soundmap_load_infowindow(){
     $files = get_post_meta($marker_id, 'soundmap_attachments_id', FALSE);
     foreach ($files as $key => $value){
         $file = array();
+        $att = get_post($value);
         $file['id'] = $value;
         $file['fileURI'] = wp_get_attachment_url($value);
         $file['filePath'] = get_attached_file($value);
         $file['info'] = soundmap_get_id3info($file['filePath']);
+        $file['name'] = $att->post_name;
         $info['m_files'][] = $file;   
     }
     if ($theme=soundmap_get_template_include('window')) 
@@ -464,12 +525,135 @@ function soundmap_load_infowindow(){
     die();
 }
 
+function soundmap_admin_menu(){
+    add_options_page(__('Sound Map Configuration','soundmap'), __('Sound Map','soundmap'), 'manage_options', 'soundmap-options-menu','soundmap_menu_page_callback');
+}
+
+function soundmap_menu_page_callback(){
+    
+    if (!current_user_can('manage_options'))  {
+            wp_die( __('You do not have sufficient permissions to access this page.') );
+    }
+    
+        // verify this came from the our screen and with proper authorization,
+    // because save_post can be triggered at other times
+    if (isset($_POST['soundmap_op_noncename'])){
+        if ( !wp_verify_nonce( $_POST['soundmap_op_noncename'], plugin_basename( __FILE__ ) ) )
+            return;
+        _soundmap_save_options();
+    }
+    
+    global $soundmap;
+    
+    ?>
+    	<div class="wrap">
+            <h2><?php  _e("Sound Map Configuration", 'soundmap') ?></h2>
+            <div id="map_canvas_options"></div>
+            <form method="post" action = "" id="form-soundmap-options">
+                <h3><?php _e('Map Configuration','soundmap') ?></h3>
+                <table class="form-table">                
+                    <tr valign="top">
+                        <th scope="row"><?php _e('Origin configuration','soundmap') ?></th>
+                        <td>
+                            <fieldset>
+                                <span class="description"><?php _e("Choose the original configuration with the map.", 'soundmap') ?></span>
+                                <br>
+                                <label for="soundmap_op_origin_lat"><?php _e('Latitude','soundmap') ?>: </label><br>
+                                <input class="regular-text" name="soundmap_op_origin_lat" id="soundmap_op_origin_lat" type="text" value="<?php echo $soundmap['origin']['lat'] ?>">                                    
+                                <br>
+                                <label for="soundmap_op_origin_lng"><?php _e('Longitude','soundmap') ?>: </label><br>
+                                <input class="regular-text" name="soundmap_op_origin_lng" id="soundmap_op_origin_lng" type="text" value="<?php echo $soundmap['origin']['lng'] ?>">                                                                
+                                <br>
+                                <label for="soundmap_op_origin_zoom"><?php _e('Zoom','soundmap') ?>: </label><br>
+                                <input class="small-text" name="soundmap_op_origin_zoom" id="soundmap_op_origin_zoom" type="text" value="<?php echo $soundmap['origin']['zoom'] ?>">
+                            </fieldset>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="soundmap_op_origin_type"><?php _e('Map type','soundmap') ?></label></th>
+                        <td>
+                            <fieldset>
+                                <select class="postform" name="soundmap_op_origin_type" id="soundmap_op_origin_type" >
+                                    <option class="level-0" <?php if ($soundmap['mapType']=="TERRAIN") echo 'selected ="selected"' ?> value="TERRAIN"><?php _e("Terrain") ?></option>
+                                    <option class="level-0" <?php if ($soundmap['mapType']=="SATELLITE") echo 'selected ="selected"' ?>value="SATELLITE"><?php _e("Satellite") ?></option>
+                                    <option class="level-0" <?php if ($soundmap['mapType']=="ROADMAP") echo 'selected ="selected"' ?>value="ROADMAP"><?php _e("Map") ?></option>
+                                    <option class="level-0" <?php if ($soundmap['mapType']=="HYBRID") echo 'selected ="selected"' ?>value="HYBRID"><?php _e("Hybrid") ?></option> 
+                                </select>                                
+                            </fieldset>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="soundmap_op_page"><?php _e('Show map page','soundmap') ?></label></th>
+                        <td>                            
+                           <input class="regular-text" name="soundmap_op_page" id="soundmap_op_page" type="text" value="<?php echo $soundmap['map_Page'] ?>">
+                            <br>
+                            <span class="description">
+                                <?php _e('Select one direction for showing the map (ex: map). If you want to use is as your home, write [home].<br>You can also show the map on any page using the shortcode [soundmap]','soundmap') ?>
+                            </span>
+                        </td>
+                    </tr>
+                </table>                
+                <h3><?php _e('Sound Player Modules','soundmap') ?></h3>                
+                    <?php _soundmap_list_installer_audio_players(); ?>
+                <p class="submit">
+                    <input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Save Changes') ?>" />
+                </p>
+                
+                <input type="hidden" name="soundmap_op_noncename" id="soundmap_op_noncename" value="<?php echo wp_create_nonce( plugin_basename(__FILE__) ) ?>" />
+            </form>
+	</div>
+<?php
+}
+
+function _soundmap_list_installer_audio_players(){
+    
+    include_once(ABSPATH . 'wp-admin' . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'plugin.php');
+    $plugins = get_plugins();
+    global $soundmap;
+    $valid_plugins = array('Audio player', 'Haiku - minimalist audio player', 'JPlayer', 'wp audio gallery playlist');
+    $active_plugins = get_option( 'active_plugins', array() );
+    $rows = '';
+    foreach($active_plugins as $key => $name){
+        if (array_key_exists ($name,$plugins)){
+            $plugin = $plugins[$name];        
+            if (!(array_search($plugin["Name"], $valid_plugins) === FALSE)){
+                if($name == $soundmap['player_plugin']){$ch = 'checked = "checked"';}else{$ch = '';}
+                $rows .= '<tr class="inactive"><th scope="row" class="check-column">';
+                $rows .= '<input type="radio" name="soundmap_op_plugin" value="' .$name . '" '. $ch .'></th>';
+                $rows .= '<td class="plugin-title"><strong>' . $plugin['Name'] . '</strong></td>';
+                $rows .= '<td class="column-description desc"><div class="plugin-description"><p>'. $plugin['Description'] .'</p></div>';
+                $rows .= '<div class="inactive second plugin-version-author-uri">' . __('Version') . ' ' . $plugin['Version'] . ' | ' . __('By') . ' <a href="' . $plugin['AuthorURI'] . '">' . $plugin['Author'] . '</a> | <a href="' . $plugin['PluginURI'] . '">' . __('Visit plugin site') . '</a></div>';
+                $rows .= '</td></tr>';
+            }
+        }
+    }
+    ?>
+    <table class="wp-list-table widefat plugins" cellspacing="0">
+        <thead>
+            <tr>
+                <th scope="col" class="manage-column check-column"></th>
+                <th scope="col" class="manage-column column-name"><?php _e("Plugin") ?></th>
+                <th scope="col" class="manage-column column-description"><?php _e("Description") ?></th>
+            </tr>            
+        </thead>
+        <tbody id="the-list">
+            <?php echo $rows; ?>
+        </tbody>
+        
+    </table>
+    
+    <?php
+}
+
+
+
 add_action('template_redirect', 'soundmap_template_redirect');
 add_action('init', 'soundmap_init');
 add_action('admin_enqueue_scripts', 'soundmap_admin_enqueue_scripts');
 add_action('wp_enqueue_scripts', 'soundmap_wp_enqueue_scripts');
 add_action('admin_init', 'soundmap_register_admin_scripts');
 add_action('save_post', 'soundmap_save_post');
+add_action('admin_menu',   "soundmap_admin_menu"); 
 
 add_action('wp_ajax_soundmap_file_uploaded', 'soundmap_ajax_file_uploaded_callback');
 add_action('wp_ajax_nopriv_soundmap_JSON_load_markers','soundmap_JSON_load_markers');

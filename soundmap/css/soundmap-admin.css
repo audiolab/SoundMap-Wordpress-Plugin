@@ -1,5 +1,5 @@
 
-#map_canvas{width:100%; height:400px;}
+#map_canvas, #map_canvas_options{width:100%; height:400px;}
 #sound-att-table {width:100%; table-layout: fixed; word-break: break-word; border-collapse: collapse;}
 #sound-att-table th{text-align:left;}
 #sound-att-table .soundmap-att-left{width:60%; padding-right:6px}
