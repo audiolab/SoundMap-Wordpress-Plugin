@@ -17,7 +17,7 @@ header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
 // Settings
-$targetDir = ini_get("upload_tmp_dir") . DIRECTORY_SEPARATOR . "plupload";
+$targetDir = ini_get("upload_tmp_dir");
 //$targetDir = 'uploads/';
 
 //$cleanupTargetDir = false; // Remove old files
