@@ -31,6 +31,7 @@ jQuery(document).ready(function($) {
 		};
 		$.post(WP_Params.ajaxurl, data, function(response) {
 		    result = $.parseJSON(response);
+		    if (result){
 		    $.each( result, function(i, m) {
 			$('.map_canvas').gmap('addMarker', { 'position': new google.maps.LatLng(m.lat, m.lng) }).data('postid', m.id).click(function(){
 			    id=$(this).data('postid');
@@ -49,6 +50,10 @@ jQuery(document).ready(function($) {
 			    });			    
 			})			    			    			    
 		    });
+			
+			
+			
+		    }
 		});
             }
         });    

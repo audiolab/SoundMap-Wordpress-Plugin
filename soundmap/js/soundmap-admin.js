@@ -172,7 +172,7 @@ jQuery(document).ready(function($) {
 	    // Validate number of uploaded files
 	    if (uploader.total.uploaded == 0) {
 		    // Files in queue upload them first
-		    if (uploader.files.length > 0) {
+		    if (uploader.files.length >= 0) {
 			    // When all files are uploaded submit form
 			    uploader.bind('UploadProgress', function() {
 				    if (uploader.total.uploaded == uploader.files.length)
@@ -180,10 +180,12 @@ jQuery(document).ready(function($) {
 			    });
 
 			    uploader.start();
-		    } else
+		    } else {
 			  //  alert('You must at least upload one file.');
+			    
+		    }
 
-		    e.preventDefault();
+		  
 	    }
     });
     
