@@ -5,3 +5,14 @@
 #sound-att-table .soundmap-att-left{width:60%; padding-right:6px}
 #sound-att-table tr {border-bottom:1px solid #666;}
 #sound-att-table td {padding: 3px 0;}
+
+.uploadFileQueued{
+    height:36px;
+    margin:10px 0;
+}
+
+.filename{
+	position:relative;
+	margin-top:10px;
+	font-weight: bold;
+}

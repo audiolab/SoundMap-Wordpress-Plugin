@@ -4,7 +4,7 @@
 
 
 <div <?php post_class('marker-window', $marker_id) ?>>
-    <div class="post-title"><h3><?php echo get_the_title($marker_id); ?></h3></div>
+    <div class="post-title"><h3><a href="<?php echo get_permalink($marker_id);?>"><?php echo get_the_title($marker_id); ?></a></h3></div>
     <div class="post-content">
         <?php echo apply_filters('the_content',get_the_content()) ?>
         <hr>
@@ -20,5 +20,6 @@
         <?php echo __('Categories','soundmap') . ': '; the_category(' | '); ?>
         </div>
     </div>
+ 
     
 </div>

@@ -1,0 +1,381 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: SoundMap\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-27 16:06+0100\n"
+"PO-Revision-Date: 2012-01-27 16:12+0100\n"
+"Last-Translator: \n"
+"Language-Team: AudioLab\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;gettext;gettext_noop;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: SPAIN\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../soundmap.php:38
+msgid "Marks"
+msgstr "Markatzaileak"
+
+#: ../soundmap.php:39
+msgid "Mark"
+msgstr "Markatzailea"
+
+#: ../soundmap.php:41
+msgid "Add New Marker"
+msgstr "Markatzaile berria gehitu"
+
+#: ../soundmap.php:42
+msgid "Edit Marker"
+msgstr "Editatu markatzailea"
+
+#: ../soundmap.php:43
+msgid "New Marker"
+msgstr "Markatzaile berria"
+
+#: ../soundmap.php:44
+msgid "All Markers"
+msgstr "Markatzaile guztiak"
+
+#: ../soundmap.php:45
+msgid "View Marker"
+msgstr "Ikus markatzaileak"
+
+#: ../soundmap.php:46
+msgid "Search Markers"
+msgstr "Bilatu markatzaileak"
+
+#: ../soundmap.php:47
+msgid "No markers found"
+msgstr "Ez da markatzailerik topatu"
+
+#: ../soundmap.php:48
+msgid "No markers found in Trash"
+msgstr "Ez da markatzailerik topatu zakar ontzian"
+
+#: ../soundmap.php:171
+msgid "Place the Marker"
+msgstr "Kokatu markatzailea"
+
+#: ../soundmap.php:172
+msgid "Add a sound file"
+msgstr "Gehitu grabaketa bat"
+
+#: ../soundmap.php:173
+msgid "Add info for the marker"
+msgstr "Gehitu markatzaileari buruzko informazioa"
+
+#: ../soundmap.php:174
+msgid "Sound files attached."
+msgstr "Gehitutako grabaketak."
+
+#: ../soundmap.php:175
+msgid "Uploader Mail"
+msgstr "Igotzailearen maila"
+
+#: ../soundmap.php:192
+msgid "Author"
+msgstr "Egilea"
+
+#: ../soundmap.php:206
+msgid "Filename"
+msgstr "Artxiboaren izena"
+
+#: ../soundmap.php:206
+msgid "Length"
+msgstr "Iraupena"
+
+#: ../soundmap.php:236
+msgid "Latitud"
+msgstr "Latitudea"
+
+#: ../soundmap.php:238
+msgid "Longitud"
+msgstr "Longitudea"
+
+#: ../soundmap.php:294
+#, fuzzy
+msgid "Select file"
+msgstr "Aukeratu grabaketa"
+
+#: ../soundmap.php:471
+msgid "Error moving the file."
+msgstr "Akatsa artxiboa mugitzerakoan."
+
+#: ../soundmap.php:641
+#: ../soundmap.php:674
+msgid "Sound Map Configuration"
+msgstr "Soinu Maparen konfigurazioa"
+
+#: ../soundmap.php:641
+msgid "Sound Map"
+msgstr "Soinuen Mapa"
+
+#: ../soundmap.php:659
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Ez duzu orrialde hau irakurtzeko baimenik"
+
+#: ../soundmap.php:677
+msgid "Map Configuration"
+msgstr "Maparen konfigurazioa"
+
+#: ../soundmap.php:680
+msgid "Origin configuration"
+msgstr "Jatorrizko konfigurazioa"
+
+#: ../soundmap.php:683
+msgid "Choose the original configuration with the map."
+msgstr "Aukeratu jatorrizko konfirgurazioa maparekin"
+
+#: ../soundmap.php:685
+msgid "Latitude"
+msgstr "Latitudea"
+
+#: ../soundmap.php:688
+msgid "Longitude"
+msgstr "Longitudea"
+
+#: ../soundmap.php:691
+msgid "Zoom"
+msgstr "Zoom"
+
+#: ../soundmap.php:697
+msgid "Map type"
+msgstr "Mapa mota"
+
+#: ../soundmap.php:701
+msgid "Terrain"
+msgstr "Erliebea"
+
+#: ../soundmap.php:702
+msgid "Satellite"
+msgstr "Satelitea"
+
+#: ../soundmap.php:703
+#: ../modules/module.soundmap.upload.php:125
+msgid "Map"
+msgstr "Mapa"
+
+#: ../soundmap.php:704
+msgid "Hybrid"
+msgstr "Hibridoa"
+
+#: ../soundmap.php:710
+msgid "Show map page"
+msgstr "Erakutsi maparen orria"
+
+#: ../soundmap.php:715
+msgid "Select one direction for showing the map (ex: map). If you want to use is as your home, write [home].<br>You can also show the map on any page using the shortcode [soundmap]"
+msgstr "Aukeratu mapan erakusteko helbide bat (ex: map). Hasierako orri bezala erabili nahi baduzu, idatzi [home]. <br>Aldiberean, mapa beste edozein orritan erakutsi dezakezu [soundmap] shortcode-a erabiliz."
+
+#: ../soundmap.php:720
+msgid "Sound Player Modules"
+msgstr "Audio erreproduktoreen moduloak"
+
+#: ../soundmap.php:749
+msgid "Version"
+msgstr "Bertsioa"
+
+#: ../soundmap.php:749
+msgid "By"
+msgstr "-"
+
+#: ../soundmap.php:749
+msgid "Visit plugin site"
+msgstr "Pluginaren orrialdea ikusi"
+
+#: ../soundmap.php:759
+msgid "Plugin"
+msgstr "Plugin"
+
+#: ../soundmap.php:760
+msgid "Description"
+msgstr "Deskribapena"
+
+#: ../api/soundmap_tags.php:100
+msgid "Add new recording"
+msgstr "Gehitu grabaketa berria"
+
+#: ../modules/module.soundmap.upload.php:38
+msgid "Select audio file"
+msgstr "Aukeratu grabaketa"
+
+#: ../modules/module.soundmap.upload.php:39
+msgid "Please, place the recording"
+msgstr "Kokatu grabaketa"
+
+#: ../modules/module.soundmap.upload.php:40
+msgid "Please, select one file to upload."
+msgstr "Mesedez, aukera ezazu zintzilikatu nahi duzun artxiboa"
+
+#: ../modules/module.soundmap.upload.php:41
+msgid "The selected file is too big."
+msgstr "Aukeratutako artxiboa haundiegia da"
+
+#: ../modules/module.soundmap.upload.php:42
+msgid "Locked: form can't be submited."
+msgstr "Itxita: Grabaketa ezin da igo."
+
+#: ../modules/module.soundmap.upload.php:43
+msgid "Unlocked: form can be submited."
+msgstr "Irekita: Zure grabaketa bidali dezakezu"
+
+#: ../modules/module.soundmap.upload.php:44
+msgid "Name: "
+msgstr "Izena:"
+
+#: ../modules/module.soundmap.upload.php:45
+msgid "Length: "
+msgstr "Iraupena:"
+
+#: ../modules/module.soundmap.upload.php:124
+msgid "Sound file"
+msgstr "Grabaketa:"
+
+#: ../modules/module.soundmap.upload.php:126
+msgid "Information"
+msgstr "Informazioa:"
+
+#: ../modules/module.soundmap.upload.php:127
+msgid "Submit"
+msgstr "Bidali"
+
+#: ../modules/module.soundmap.upload.php:145
+msgid "Sound file data: "
+msgstr "Grabaketaren datuak:"
+
+#: ../modules/module.soundmap.upload.php:151
+msgid "Saving the recording"
+msgstr "Grabaketa gordetzen"
+
+#: ../modules/public_upload/save-post.php:110
+msgid "Author: "
+msgstr "Egilea:"
+
+#: ../modules/public_upload/save-post.php:112
+msgid "Date: "
+msgstr "Data:"
+
+#: ../modules/public_upload/save-post.php:113
+msgid "Description: "
+msgstr "Deskribapena:"
+
+#: ../modules/public_upload/slide_first.php:7
+msgid "<h2>Contribute to Soinumapa.net</h2><p>Hello, just follow a few simple steps and within minutes Soinumapa.net will show your recording.</p>"
+msgstr "<h2>Parte hartu Soinumapan</h2><p>Kaixo, jarrai itzazu laguntzaile honek aurkeztuko dizkizun pausu errazak eta minutu gutxi barru zure grabaketa Soinumapa.net webgunean argitaratuko da.</p>"
+
+#: ../modules/public_upload/slide_first.php:8
+msgid "</p>Unless stated otherwise, your file, like all the sounds that make Soinumapa.net, will be published under a semi-free license (for more information see About Us section)."
+msgstr "</p>Bestelako aipamenik ageri ez den bitartean, zure grabaketa, Soinumapa.net osatzen duten grabaketa guztiak bezala, lizentzia erdi-aske batenpean argitaratuko da (informazio gehiagorako ikusi PARTE HARTU atala menu nagusian)."
+
+#: ../modules/public_upload/slide_first.php:9
+msgid "Please fill in as much information as possible to identify your recording, and locate it within the map as accurate as possible.</p>"
+msgstr "Saia zaitez zure grabaketa hobekien identifikatuko duten informazio leihoak betetzen, eta mapan ahalik eta zehatzen kokatzen.</p>"
+
+#: ../modules/public_upload/slide_first.php:10
+msgid "<p>In any case, the editing team from Soinumapa.net reserves the right to correct or add certain information and / or choose to display or not some recordings, always following the objectives and working methods of the project.</p>"
+msgstr "<p>SOINUMAPAko editore taldeak grabaketen informazioak osatu eta zuzentzeko eskubidea gordetzen du, baita desegokitzat onar ditzaken zenbait grabaketa ez erakusteko ere, beti ere egitasmo honen helburu eta lan metodoek ezarritako hirizpideak jarraituz.</p>"
+
+#: ../modules/public_upload/slide_first.php:11
+msgid "<p>Thanks for participating in Soinumapa.net!</p>"
+msgstr "<p>Eskerrik asko SOINUMAPA.NETen parte hartzeagatik!</p>"
+
+#: ../modules/public_upload/slide_first.php:16
+msgid "Step 1: Select audio file to upload"
+msgstr "Lehen urratsa: Aukeratu zintzilikatu nahi duzun audio artxiboa"
+
+#: ../modules/public_upload/slide_first.php:24
+msgid "<p>The sound file must be saved in mp3 format.</p><p>The maximum file size for uploading is 7 Mb, if you want to upload a bigger file, please contact to audiolab.arteleku@gmail.com</p>"
+msgstr "<p>Zure soinu artxiboak mp3 euskarrian egon behar du.</p><p>Artxibo bakoitzaren tamaina haundiena 7 Mb da, artxibo luzeagoa igo nahi bazenuke, jarri zaitez gurekin harremanetan audiolab.arteleku@gmail.com helbidean.</p>"
+
+#: ../modules/public_upload/slide_fourth.php:10
+msgid "<h2>Last check</h2>"
+msgstr "<h2>Azken egiaztapena</h2>"
+
+#: ../modules/public_upload/slide_fourth.php:11
+msgid "<p>Now, check that position you selected is correct.</p>"
+msgstr "<p>Orain, egiazta ezazu aukeratu duzun kokapena zuzena dela.</p>"
+
+#: ../modules/public_upload/slide_fourth.php:12
+msgid "</p>In order to help us on any issue concerning the recording, give us your contact mail. We will not publicate it and you will no receive any spam from us.</p>"
+msgstr "</p>Zure grabaketari buruz gerta daiteken edozein arazoren inguruan gurekin kontaktuan jarri ahal izateko, idatzi zure email helbidea. Zure helbidea ez da inon eta inoiz publikoki argitaratuko eta ez duzu inolako spam mezurik jasoko gure aldetik.</p>"
+
+#: ../modules/public_upload/slide_fourth.php:13
+msgid "<p>Once you have filled the mail, slide the locker bar and submit the information.</p><h5>Thank you for your collaboration</h5>"
+msgstr "<p>Behin email helbidea idatzi eta gero, mugi ezazu giltzarrapoaren barra informazio guztia webgunera bidali ahal izateko.</p><h5>Eskerrik asko zure lankidetzarengatik.</h5>"
+
+#: ../modules/public_upload/slide_fourth.php:18
+msgid "Step 4: Check the position and upload recording"
+msgstr "Laugarren urratsa: Kokatu zure grabaketa eta igo grabaketa"
+
+#: ../modules/public_upload/slide_fourth.php:24
+msgid "Email: "
+msgstr "E-posta:"
+
+#: ../modules/public_upload/slide_fourth.php:28
+msgid "Add recording"
+msgstr "Gehitu grabaketa:"
+
+#: ../modules/public_upload/slide_second.php:10
+msgid "<h2>Place the recording</h2>"
+msgstr "<h2>Kokatu zure grabaketa</h2>"
+
+#: ../modules/public_upload/slide_second.php:11
+msgid "<p>Try to find the position for the recording on the map. Once you have find it, click on the location for positioning the marker.</p>"
+msgstr "<p>Bila ezazu grabaketaren kokalekua mapan. Topatzerakoan, egin klik dagokion lekuan markagailua kokatzeko.</p>"
+
+#: ../modules/public_upload/slide_second.php:16
+msgid "Step 2: Place the recording on the map"
+msgstr "Bigarren urratsa: Kokatu grabaketa mapan"
+
+#: ../modules/public_upload/slide_third.php:6
+msgid "<h2>Information about the recording</h2>"
+msgstr "<h2>Grabaketari buruzko informazioa</h2>"
+
+#: ../modules/public_upload/slide_third.php:7
+msgid "<p>Help us filling this form about the information of your recording.</p>"
+msgstr "<p>Lagundu gaitzazu honako laukiak zure grabaketari buruzko informazioarekin betez.</p>"
+
+#: ../modules/public_upload/slide_third.php:8
+msgid "<p>Please, fill as much fields as you can, on the different languages of the sound map. Don't worry if you don't know how to do it in any language, we will check the texts and translate them.</p>"
+msgstr "<p>Saia zaitez ahal eta atal gehienak osatzen, maparen hizkuntza ezberdinetan.  Hizkuntzaren bat nola bete ez badakizu, ez larritu, testu guztiak gainbegiratuko eta itzuliko ditugu.</p>"
+
+#: ../modules/public_upload/slide_third.php:9
+msgid "<p>Fill also the fields of the date you did the recording, the name of the author and also try to categorize the recording. You can select more than one category.</p>"
+msgstr "<p> Bete itzazu grabaketaren dataren eta egilearen datuak eta sailkatu grabaketa atal baten barruan. Kategoria edo atal bat baino gehiago aukera dezakezu</p>"
+
+#: ../modules/public_upload/slide_third.php:14
+msgid "Step 3: Information about the recording"
+msgstr "Hirugarren urratsa: Grabaketari buruzko informazioa"
+
+#: ../modules/public_upload/slide_third.php:60
+msgid "Title"
+msgstr "Izenburua"
+
+#: ../modules/public_upload/slide_third.php:82
+msgid "Date (dd/mm/yyyy)"
+msgstr "Data (ee/hh/uu)"
+
+#: ../modules/public_upload/slide_third.php:84
+msgid "Category"
+msgstr "Atala"
+
+#: ../theme/theme_map.php:25
+msgid "SoundMap"
+msgstr "Soinuen Mapa"
+
+#: ../theme/theme_window.php:12
+msgid "Date"
+msgstr "Data"
+
+#: ../theme/theme_window.php:19
+msgid "Tags"
+msgstr "Etiketak"
+
+#: ../theme/theme_window.php:20
+msgid "Categories"
+msgstr "Atalak"
+

@@ -1,33 +1,308 @@
  /*!
- * jQuery UI Google Map 2.0
+ * jQuery FN Google Map 3.0-alpha
  * http://code.google.com/p/jquery-ui-map/
- *
- * Copyright (c) 2010 - 2011 Johan SÃ¤ll Larsson
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- * Depends:
- *      jquery.ui.core.js
- *      jquery.ui.widget.js
+ * Copyright (c) 2010 - 2011 Johan Säll Larsson
+ * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
  */
-
 ( function($) {
+	
+	/**
+	 * This is how you write unmaintainable code :) - the size is small though.
+	 * @param namespace:string
+	 * @param name:string
+	 * @param base:object
+	 */
+	$.a = function( a, b, c ) {
+		var d = [];
+		$[a] = $[a] || {};
+		$[a][b] = function(options, element) {
+			if ( arguments.length ) {
+				this._s(options, element);
+			}
+		};
+		$[a][b].prototype = c;
+		$.fn[b] = function(options) {
+			var id = this.attr('id');
+			if ( d[id] && d[id][options] ) {
+				return d[id][options].apply(d[id], Array.prototype.slice.call(arguments, 1));
+			} else if ( typeof options === 'object' || ! options ) {
+				d[id] = new $[a][b](options, this);
+				return this;
+			}  
+		};
+	};
+	
+	$.a("ui", "gmap", {
+		
+		/**
+		 * Map options
+		 * @see http://code.google.com/intl/sv-SE/apis/maps/documentation/javascript/reference.html#MapOptions
+		 */
+		options: {
+			center: (google.maps) ? new google.maps.LatLng(0.0, 0.0) : null,
+			mapTypeId: (google.maps) ? google.maps.MapTypeId.ROADMAP : null,
+			zoom: 5	
+		},
+		
+		/**
+		 * Get or set options
+		 * @param key:string
+		 * @param options:object
+		 */
+		option: function(a, b) {
+			c = this;
+			if (!b) {
+				return c.options[a];
+			} else {
+				c._u(a, b);
+			}
+		},
+		
+		/**
+		 * Setup plugin basics, 
+		 * Set the jQuery UI Widget this.element, so extensions will work on both plugins
+		 */
+		_s: function( a, b ) {
+			this.id = b.attr('id');
+			this.instances = [];
+			this.element = b;
+			this.options = jQuery.extend(this.options, a);
+			this._create();
+			if ( this._init ) {
+				this._init();
+			}
+		},
+		
+		/**
+		 * Create
+		 * @return $(google.maps.Map)
+		 */
+		_create: function() {
+			this.options.center = this._latLng(this.options.center);
+			var a = this.element;
+			var b = this.instances[this.id] = { map: new google.maps.Map( a[0], this.options ), markers: [], services: [], overlays: [] };
+			google.maps.event.addListenerOnce(b.map, 'bounds_changed', function() {
+				a.trigger('init', this);
+			});
+			return $(b.map);
+		},
+		
+		/**
+		 * Set map options
+		 * @param key:string (optional)
+		 * @param value:object (optional)
+		 */
+		_u: function(a, b) {
+			var map = this.get('map');
+			jQuery.extend(this.options, { 'center': map.getCenter(), 'mapTypeId': map.getMapTypeId(), 'zoom': map.getZoom() } );
+			if (a && b) {
+				this.options[a] = b;
+			}
+			map.setOptions(this.options);
+		},
+		
+		/**
+		 * Adds a latitude longitude pair to the bounds.
+		 * @param position:google.maps.LatLng/string
+		 */
+		addBounds: function(a) {
+			this.get('bounds', new google.maps.LatLngBounds()).extend(this._latLng(a));
+			this.get('map').fitBounds(this.get('bounds'));
+		},
+		
+		/**
+		 * Adds a custom control to the map
+		 * @param panel:jquery/node/string	
+		 * @param position:google.maps.ControlPosition	 
+		 * @see http://code.google.com/intl/sv-SE/apis/maps/documentation/javascript/reference.html#ControlPosition
+		 */
+		addControl: function(a, b) {
+			this.get('map').controls[b].push(this._unwrap(a));
+		},
+		
+		/**
+		 * Adds a Marker to the map
+		 * @param markerOptions:google.maps.MarkerOptions (optional)
+		 * @param callback:function(map:google.maps.Map, marker:google.maps.Marker) (optional)
+		 * @param marker:function (optional)
+		 * @return $(google.maps.Marker)
+		 * @see http://code.google.com/intl/sv-SE/apis/maps/documentation/javascript/reference.html#MarkerOptions
+		 */
+		addMarker: function(a, b, c) {
+			var d = this.get('map');
+			var c = c || google.maps.Marker;
+			a.position = (a.position) ? this._latLng(a.position) : null;
+			var e = new c( jQuery.extend({'map': d, 'bounds': false}, a) );
+			var f = this.get('markers', []);
+			if ( e.id ) {
+				f[e.id] = e;
+			} else {
+				f.push(e);
+			}
+			if ( e.bounds ) {
+				this.addBounds(e.getPosition());
+			}
+			this._call(b, d, e);
+			return $(e);
+		},
+		
+		/**
+		 * Adds an InfoWindow to the map
+		 * @param infoWindowOptions:google.maps.InfoWindowOptions (optional)
+		 * @param callback:function(InfoWindow:google.maps.InfoWindowOptions) (optional)
+		 * @return $(google.maps.InfoWindowOptions)
+		 * @see http://code.google.com/intl/sv-SE/apis/maps/documentation/javascript/reference.html#InfoWindowOptions
+		 */
+		addInfoWindow: function(a, b) {
+			var c = new google.maps.InfoWindow(a);
+			this._call(b, c);
+			return $(c);
+		},
+		
+		/**
+		 * Clears by type
+		 * @param type:string i.e. markers, overlays, services
+		 */
+		clear: function(a) {
+			this._c(this.get(a));
+			this.set(a, []);
+		},
+		
+		_c: function(a) {
+			for ( b in a ) {
+				if ( a[b] instanceof google.maps.MVCObject ) {
+					google.maps.event.clearInstanceListeners(a[b]);
+					a[b].setMap(null);
+				} else if ( a[b] instanceof Array ) {
+					this._c(a[b]);
+				}
+				a[b] = null;
+			}
+		},
+		
+		/**
+		 * Returns the marker(s) with a specific property and value, e.g. 'category', 'tags'
+		 * @param property:string the property to search within
+		 * @param value:string
+		 * @param delimiter:string/boolean	a delimiter if it's multi-valued otherwise false
+		 * @param callback:function(marker:google.maps.Marker, isFound:boolean)
+		 */
+		findMarker: function(a, b, c, d) {
+			var e = this.get('markers');
+			for ( f in e ) {
+				var g = ( c && e[f][a] ) ? ( e[f][a].split(c).indexOf(b) > -1 ) : ( e[f][a] === b );
+				this._call(d, e[f], g);
+			};
+		},
+
+		/**
+		 * Returns an instance property by key. Has the ability to set an object if the property does not exist
+		 * @param key:string
+		 * @param value:object(optional)
+		 */
+		get: function(a, b) {
+			var c = this.instances[this.id];
+			if (!c[a]) {
+				if ( a.indexOf('>') > -1 ) {
+					var e = a.replace(/ /g, '').split('>');
+					for ( var i = 0; i < e.length; i++ ) {
+						if ( !c[e[i]] ) {
+							if (b) {
+								c[e[i]] = ( (i + 1) < e.length ) ? [] : b;
+							} else {
+								return null;
+							}
+						}
+						c = c[e[i]];
+					}
+					return c;
+				} else if ( b && !c[a] ) {
+					this.set(a, b);
+				}
+			}
+			return c[a];
+		},
+		
+		/**
+		 * Triggers an InfoWindow to open
+		 * @param infoWindowOptions:google.maps.InfoWindowOptions
+		 * @param marker:google.maps.Marker (optional)
+		 * @see http://code.google.com/intl/sv-SE/apis/maps/documentation/javascript/reference.html#InfoWindowOptions
+		 */
+		openInfoWindow: function(a, b) {
+			this.get('iw', new google.maps.InfoWindow).setOptions(a);
+			this.get('iw').open(this.get('map'), this._unwrap(b)); 
+		},
+				
+		/**
+		 * Sets an instance property
+		 * @param key:string
+		 * @param value:object
+		 */
+		set: function(a, b) {
+			this.instances[this.id][a] = b;
+		},
+		
+		/**
+		 * Refreshes the map
+		 */
+		refresh: function() {
+			$(this.get('map')).triggerEvent('resize');
+			this._update();
+		},
+		
+		/**
+		 * Destroys the plugin.
+		 */
+		destroy: function() {
+			this.clear('markers');
+			this.clear('services');
+			this.clear('overlays');
+			var a = this.instances[this.id];
+			for ( b in a ) {
+				a[b] = null;
+			}
+		},
+		
+		/**
+		 * Helper method for calling a function
+		 * @param callback
+		 */
+		_call: function(a) {
+			if ( $.isFunction(a) ) {
+				a.apply(this, Array.prototype.slice.call(arguments, 1));
+			}
+		},
+		
+		/**
+		 * Helper method for google.maps.Latlng
+		 * @param callback
+		 */
+		_latLng: function(a) {
+			if ( a instanceof google.maps.LatLng ) {
+				return a;
+			} else {
+				var b = a.replace(' ','').split(',');
+				return new google.maps.LatLng(b[0], b[1]);
+			}
+		},
+		
+		/**
+		 * Helper method for unwrapping jQuery/DOM/string elements
+		 * @param callback
+		 */
+		_unwrap: function(a) {
+			if ( !a ) {
+				return null;
+			} else if ( a instanceof jQuery ) {
+				return a[0];
+			} else if ( a instanceof Object ) {
+				return a;
+			}
+			return $('#'+a)[0];
+		}
+		
+	});
 	
 	jQuery.fn.extend( {
 		
@@ -60,12 +335,12 @@
 		},
 		
 		triggerEvent: function(a) {
-			google.maps.event.trigger(this.get(0), a);		
+			google.maps.event.trigger(this[0], a);		
 		},
 		
 		addEventListener: function(a, b) {
-			if ( google.maps && this.get(0) instanceof google.maps.MVCObject ) {
-				google.maps.event.addListener(this.get(0), a, b );
+			if ( google.maps && this[0] instanceof google.maps.MVCObject ) {
+				google.maps.event.addListener(this[0], a, b );
 			} else {
 				this.bind(a, b);	
 			}
@@ -74,277 +349,4 @@
 		
 	});
 	
-	$.widget( "ui.gmap", {
-			
-			options: {
-				backgroundColor : null,
-				center: ( google.maps ) ? new google.maps.LatLng(0.0, 0.0) : null,
-				disableDefaultUI: false,
-				disableDoubleClickZoom: false,
-				draggable: true,
-				draggableCursor: null,
-				draggingCursor: null,
-				keyboardShortcuts: true,
-				mapTypeControl: true,
-				mapTypeControlOptions: null,
-				mapTypeId: ( google.maps ) ? google.maps.MapTypeId.ROADMAP : null,
-				navigationControl: true,
-				navigationControlOptions: null,
-				noClear: false,
-				scaleControl: false,
-				scaleControlOptions: null,
-				scrollwheel: false,
-				streetViewControl: true,
-				streetViewControlOptions: null,
-				zoom: 5,
-				callback: null
-			},
-			
-			_create: function() {
-				$.ui.gmap.instances[this.element.attr('id')] = { map: new google.maps.Map( this.element[0], this.options ), markers: [], bounds: null, services: [] };
-			},
-			
-			_init: function() {
-				$.ui.gmap._trigger(this.options.callback, this.getMap() );
-				return $(this.getMap());
-			},
-			
-			_setOption: function(a, b) {
-				var map = this.getMap();
-				this.options.center = map.getCenter();
-				this.options.mapTypeId = map.getMapTypeId();
-				this.options.zoom = map.getZoom();
-				$.Widget.prototype._setOption.apply(this, arguments);
-				map.setOptions(this.options);
-			},
-			
-			/**
-			 * Adds a LatLng to the bounds.
-			 */
-			addBounds: function(a) {
-				var instances = $.ui.gmap.instances[this.element.attr('id')];
-				if ( !instances.bounds ) {
-					instances.bounds = new google.maps.LatLngBounds(); 
-				}
-				instances.bounds.extend(a);
-				instances.map.fitBounds(instances.bounds);
-			},
-			
-			/**
-			 * Adds a control to the map
-			 * @param a:jQuery/Node/String
-			 * @param b:google.maps.ControlPosition, http://code.google.com/intl/sv-SE/apis/maps/documentation/javascript/reference.html#ControlPosition
-			 */
-			addControl: function(a, b) {
-				this.getMap().controls[b].push($.ui.gmap._unwrap(a));
-			},
-			
-			/**
-			 * Adds a Marker to the map
-			 * @param a:google.maps.MarkerOptions, http://code.google.com/intl/sv-SE/apis/maps/documentation/javascript/reference.html#MarkerOptions
-			 * @param b:function(map:google.maps.Map, marker:Marker)
-			 * @return $(google.maps.Marker)
-			 */
-			addMarker: function(a, b) {
-				var marker = new google.maps.Marker( jQuery.extend( { 'map': this.getMap(), 'bounds':false }, a) );
-				this.getMarkers().push( marker );
-				if ( marker.bounds ) {
-					this.addBounds(marker.getPosition());
-				}
-				$.ui.gmap._trigger(b, this.getMap(), marker );
-				return $(marker);
-			},
-			
-			/**
-			 * Adds an InfoWindow to the map
-			 * @param a:google.maps.InfoWindowOptions, http://code.google.com/intl/sv-SE/apis/maps/documentation/javascript/reference.html#InfoWindowOptions
-			 * @param b:function(InfoWindow:google.maps.InfoWindowOptions)
-			 * @return $(google.maps.InfoWindowOptions)
-			 */
-			addInfoWindow: function(a, b) {
-				var iw = new google.maps.InfoWindow(a);
-				$.ui.gmap._trigger(b, iw);
-				return $(iw);
-			},
-			
-			/**
-			 * Computes directions between two or more places.
-			 * @param a:google.maps.DirectionsRequest, http://code.google.com/intl/sv-SE/apis/maps/documentation/javascript/reference.html#DirectionsRequest
-			 * @param b:google.maps.DirectionsRendererOptions, http://code.google.com/intl/sv-SE/apis/maps/documentation/javascript/reference.html#DirectionsRendererOptions
-			 * @param c:function(success:boolean, result:google.maps.DirectionsResult), http://code.google.com/intl/sv-SE/apis/maps/documentation/javascript/reference.html#DirectionsResult
-			 */
-			displayDirections: function(a, b, c) { 
-				var instance = $.ui.gmap.instances[this.element.attr('id')];
-				if ( !instance.services.DirectionsService ) {
-					instance.services.DirectionsService = new google.maps.DirectionsService();
-				}
-				if ( !instance.services.DirectionsRenderer ) {
-					instance.services.DirectionsRenderer = new google.maps.DirectionsRenderer();
-				}
-				instance.services.DirectionsRenderer.setOptions(jQuery.extend({'map': instance.map}, b));
-				instance.services.DirectionsService.route( a, function(result, status) {
-					if ( status === google.maps.DirectionsStatus.OK ) {
-						if ( b.panel ) {
-							instance.services.DirectionsRenderer.setDirections(result);
-						}
-					} else {
-						instance.services.DirectionsRenderer.setMap(null);
-					}
-					$.ui.gmap._trigger(c, ( status === google.maps.DirectionsStatus.OK ), result);
-				});
-			},
-			
-			/**
-			 * Displays the panorama for a given LatLng or panorama ID.
-			 * @param a:jQuery/String/Node
-			 * @param b?:google.maps.StreetViewPanoramaOptions, http://code.google.com/intl/sv-SE/apis/maps/documentation/javascript/reference.html#StreetViewPanoramaOptions
-			 */
-			displayStreetView: function(a, b) {
-				var instance = $.ui.gmap.instances[this.element.attr('id')];
-				instance.services.StreetViewPanorama = new google.maps.StreetViewPanorama($.ui.gmap._unwrap(a), b);
-				instance.map.setStreetView(instance.services.StreetViewPanorama);
-			},
-			
-			/**
-			 * Returns the marker(s) with a specific property and value, e.g. 'category', 'airports'
-			 * @param a:String - the property to search within
-			 * @param b:String - the query
-			 * @param c:function(found:boolean, marker:google.maps.Marker)
-			 */
-			findMarker : function(a, b, c) {
-				$.each( this.getMarkers(), function(i, marker) {
-					$.ui.gmap._trigger(c, ( marker[a] === b ), marker);
-				});
-			},
-			
-			/**
-			 * Extracts meta data from the HTML
-			 * @param a:String - rdfa, microformats or microdata 
-			 * @param b:String - the namespace
-			 * @param c:function(item:jQuery, result:Array<String>)
-			 */
-			loadMetadata: function(a, b, c) { 
-				if ( a === 'rdfa' ) {
-					$.ui.gmap.rdfa(b, c);
-				} else if ( a === 'microformat') {
-					$.ui.gmap.microformat(b, c);
-				} else if ( a === 'microdata') {
-					$.ui.gmap.microdata(b, c);
-				}
-			},
-			
-			/**
-			 * Adds fusion data to the map.
-			 * @param a:google.maps.FusionTablesLayerOptions, http://code.google.com/intl/sv-SE/apis/maps/documentation/javascript/reference.html#FusionTablesLayerOptions
-			 */
-			loadFusion: function(a) {
-				var instance = $.ui.gmap.instances[this.element.attr('id')];
-				if ( !instance.services.FusionTablesLayer ) {
-					instance.services.FusionTablesLayer = new google.maps.FusionTablesLayer();
-				}
-				instance.services.FusionTablesLayer.setOptions(a);
-				instance.services.FusionTablesLayer.setMap(this.getMap());
-			},
-			
-			/**
-			 * Adds markers from KML file or GeoRSS feed
-			 * @param a:String - an identifier for the RSS e.g. 'rss_dogs'
-			 * @param b:String - URL to feed
-			 * @param c:google.maps.KmlLayerOptions, http://code.google.com/intl/sv-SE/apis/maps/documentation/javascript/reference.html#KmlLayerOptions
-			 */
-			loadKML: function(a, b, c) {
-				var instance = $.ui.gmap.instances[this.element.attr('id')];
-				if ( !instance.services[a] )
-					instance.services[a] = new google.maps.KmlLayer(b, jQuery.extend({'map': instance.map }, c)); 
-			},
-			
-			/**
-			 * A service for converting between an address and a LatLng.
-			 * @param a:google.maps.GeocoderRequest
-			 * @param b:function(success:boolean, result:google.maps.GeocoderResult), http://code.google.com/intl/sv-SE/apis/maps/documentation/javascript/reference.html#GeocoderResult
-			 */
-			search: function(a, b) {
-				var instance = $.ui.gmap.instances[this.element.attr('id')];
-				if ( !instance.services.Geocoder ) {
-					instance.services.Geocoder = new google.maps.Geocoder();
-				}
-				instance.services.Geocoder.geocode( a, function(result, status) {
-					$.ui.gmap._trigger(b, ( status === google.maps.GeocoderStatus.OK ), result);
-				});
-			},
-			
-			/**
-			 * Returns the map.
-			 * @return google.maps.Map
-			 */
-			getMap: function() {
-				return $.ui.gmap.instances[this.element.attr('id')].map;
-			},
-			
-			/**
-			 * Returns all markers.
-			 * @return Array<google.maps.Marker>
-			 */
-			getMarkers: function() {
-				return $.ui.gmap.instances[this.element.attr('id')].markers;
-			},
-			
-			/**
-			 * Returns a service by its service name
-			 * @param id:string
-			 */
-			getService: function(id) {
-				return $.ui.gmap.instances[this.element.attr('id')].services[id];
-			},
-			
-			/**
-			 * Clears all the markers and added event listeners.
-			 */
-			clearMarkers: function() {
-				$.each( this.getMarkers(), function(a,b) {
-					google.maps.event.clearInstanceListeners(b);
-					b.setMap(null);
-					b = null;
-				});
-				$.ui.gmap.instances[this.element.attr('id')].markers = [];
-			},
-			
-			/**
-			 * Destroys the plugin.
-			 */
-			destroy: function() {
-				this.clearMarkers();
-				google.maps.event.clearInstanceListeners(this.getMap());
-				$.each($.ui.gmap.instances[this.element.attr('id')].services, function (a, b) {
-					b = null;
-				});
-				$.Widget.prototype.destroy.call( this );
-			}
-			
-	});
-
-	$.extend($.ui.gmap, {
-        
-		version: "2.0",
-		instances: [],
-		
-		_trigger: function(a) {
-			if ( $.isFunction(a) ) {
-				a.apply(this, Array.prototype.slice.call(arguments, 1));
-			}
-		},
-		
-		_unwrap: function unwrap(a) {
-			if ( !a ) {
-				return null;
-			} else if ( a instanceof jQuery ) {
-				return a[0];
-			} else if ( a instanceof Object ) {
-				return a;
-			}
-			return document.getElementById(a);
-		}
-			
-	});
-
 } (jQuery) );
