@@ -23,10 +23,11 @@ On the configuration panel for plugin, located under the Settings panel of Wordp
 Showing the soundmap
 -----
 
-To show the map, you only have to select the url you want to use for this. On the config page you will find and option called <b>Show map page</b> here you can write the url. 
-For example, if you want to use www.yoursoundmap.com/map you need to write here <b>map</b>. If you want to use the root, write [home].
+To show the map, you only have use the theme tag <b>the_map</b> as follows:
 
-Once you select one url, the plugin will use a template page called 'theme_yoururl.php'. You can see the template file located under 'soundmap/theme' as an example.
+	the_map(css_id = 'map_canvas', all_markers = FALSE, $options = array());
+
+in the template page you want to show the map. More information about this and more theme tags in the documentation.
 
 It is important that inside the template file you include this HTML line:
  	<div class="map_canvas"></div> 
