@@ -1,0 +1,519 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: SoundMap Theme\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-03-23 17:44+0100\n"
+"PO-Revision-Date: 2012-03-23 17:45+0100\n"
+"Last-Translator: \n"
+"Language-Team: Audiolab\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;gettext;gettext_noop;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: SPAIN\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../404.php:17
+msgid "This is somewhat embarrassing, isn&rsquo;t it?"
+msgstr "Esto es un poco embarazoso, ¿verdad?"
+
+#: ../404.php:21
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching, or one of the links below, can help."
+msgstr "Lo sentimos, pero no hemos encontrado nada en el archivo especificado. Quizás una búsqueda te ayudará a encontrar el post."
+
+#: ../404.php:28
+msgid "Most Used Categories"
+msgstr "Categorías más utilizadas"
+
+#: ../404.php:36
+#, php-format
+msgid "Try looking in the monthly archives. %1$s"
+msgstr "Prueba buscando en los archivos mensuales. %1$s"
+
+#: ../category.php:19
+#, php-format
+msgid "Category Archives: %s"
+msgstr "Archivo de la categoría: %s"
+
+#: ../category.php:49
+#: ../index.php:34
+#: ../search.php:41
+#, fuzzy
+msgid "Nothing Found"
+msgstr "Nada encontrado"
+
+#: ../category.php:53
+#: ../index.php:38
+msgid "Apologies, but no results were found for the requested archive. Perhaps searching will help find a related post."
+msgstr "Lo sentimos, pero no hemos encontrado nada en el archivo especificado. Quizás una búsqueda te ayudará a encontrar el post."
+
+#: ../comments.php:17
+msgid "This post is password protected. Enter the password to view any comments."
+msgstr "Esta entrada está protegida con contraseña. Introduce la contraseña para poder ver los comentarios."
+
+#: ../comments.php:40
+#: ../comments.php:60
+msgid "Comment navigation"
+msgstr "Navegación de comentarios"
+
+#: ../comments.php:41
+#: ../comments.php:61
+msgid "&larr; Older Comments"
+msgstr "&larr; Antiguos Comentarios"
+
+#: ../comments.php:42
+#: ../comments.php:62
+#, fuzzy
+msgid "Newer Comments &rarr;"
+msgstr "Siguiente &rarr;"
+
+#: ../comments.php:72
+msgid "Comments are closed."
+msgstr ""
+
+#: ../content-marker.php:13
+#, php-format
+msgid "<p>Author: %1$s</br>Date: %2$s</p>"
+msgstr "<p>Autor: %1$s</br>Fecha: %2$s</p>"
+
+#: ../content-marker.php:27
+#: ../content-marker.php:30
+#: ../content-single.php:24
+#: ../content-single.php:27
+#: ../content.php:33
+#: ../content.php:43
+msgid ", "
+msgstr ","
+
+#: ../content-marker.php:31
+#, php-format
+msgid "Categories: %1$s<br/>Tags: %2$s</br>"
+msgstr "Categorías: %1$s<br/>Etiquetas: %2$s</br>"
+
+#: ../content-marker.php:40
+#: ../content-page.php:21
+#: ../content-single.php:46
+#: ../content.php:62
+msgid "Edit"
+msgstr "Editar"
+
+#: ../content-page.php:18
+#: ../content-single.php:18
+#: ../content.php:25
+msgid "Pages:"
+msgstr "Páginas:"
+
+#: ../content-single.php:29
+#, php-format
+msgid "This entry was posted in %1$s and tagged %2$s by <a href=\"%6$s\">%5$s</a>. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr ""
+
+#: ../content-single.php:31
+#, php-format
+msgid "This entry was posted in %1$s by <a href=\"%6$s\">%5$s</a>. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr ""
+
+#: ../content-single.php:33
+#, php-format
+msgid "This entry was posted by <a href=\"%6$s\">%5$s</a>. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr ""
+
+#: ../content-single.php:55
+#, fuzzy, php-format
+msgid "View all posts by %s <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Siguiente <span class=\"meta-nav\">&rarr;</span>"
+
+#: ../content.php:16
+msgid "Featured"
+msgstr "Aparece"
+
+#: ../content.php:24
+msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Continuar leyendo <span class=\"meta-nav\">&rarr;</span>"
+
+#: ../content.php:37
+#, php-format
+msgid "<span class=\"%1$s\">Posted in</span> %2$s"
+msgstr "<span class=\"%1$s\">Publicado en</span> %2$s"
+
+#: ../content.php:49
+#, php-format
+msgid "<span class=\"%1$s\">Tagged</span> %2$s"
+msgstr "<span class=\"%1$s\">Etiquetado</span> %2$s"
+
+#: ../content.php:59
+msgid "Leave a reply"
+msgstr "Dejar una respuesta"
+
+#: ../content.php:59
+msgid "<b>1</b> Reply"
+msgstr "<b>1</b> Respuesta"
+
+#: ../content.php:59
+msgid "<b>%</b> Replies"
+msgstr "<b>%</b> Respuestas"
+
+#: ../footer.php:26
+msgid "http://wordpress.org/"
+msgstr "http://wordpress.org/"
+
+#: ../footer.php:26
+#, php-format
+msgid "Proudly powered by %s"
+msgstr "Basado en %s"
+
+#: ../functions.php:3
+msgid "Primary Menu"
+msgstr "Menu inicial"
+
+#: ../functions.php:7
+msgid "Main Sidebar"
+msgstr "Barra lateral principal"
+
+#: ../header.php:60
+msgid "Main menu"
+msgstr ""
+
+#: ../header.php:62
+msgid "Skip to primary content"
+msgstr ""
+
+#: ../header.php:63
+msgid "Skip to secondary content"
+msgstr ""
+
+#: ../search.php:19
+#, php-format
+msgid "Search Results for: %s"
+msgstr "Resultado de la búsqueda: %s"
+
+#: ../search.php:45
+msgid "Sorry, but nothing matched your search criteria. Please try again with some different keywords."
+msgstr "Lo sentimos, pero no hemos encontrado ningúna entrada que corresponda con la búsqueda. Por favor, inténtalo otra vez con otras palabras."
+
+#: ../searchform.php:11
+msgid "Search"
+msgstr "Buscar"
+
+#: ../sidebar.php:18
+#, fuzzy
+msgid "Archives"
+msgstr "Archivo"
+
+#: ../sidebar.php:25
+msgid "Meta"
+msgstr ""
+
+#: ../single-marker.php:30
+msgid "Post navigation"
+msgstr "Navegación de entradas"
+
+#: ../single-marker.php:31
+msgid "<span class=\"meta-nav\">&larr;</span> Previous"
+msgstr "<span class=\"meta-nav\">&larr;</span> Anterior"
+
+#: ../single-marker.php:32
+msgid "Next <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Siguiente <span class=\"meta-nav\">&rarr;</span>"
+
+#: ../tag.php:20
+#, php-format
+msgid "Tag Archives: %s"
+msgstr "Archivo de etiquetas: %s"
+
+#~ msgid "en"
+#~ msgstr "en"
+
+#, fuzzy
+#~ msgid "Primary Navigation"
+#~ msgstr "Navegación de imagen"
+
+#~ msgid "Specie"
+#~ msgstr "Especie"
+
+#~ msgid "Add New Specie"
+#~ msgstr "Añadir nueva Especie"
+
+#~ msgid "Edit Specie"
+#~ msgstr "Editar Especie"
+
+#~ msgid "New Specie"
+#~ msgstr "Nueva Especie"
+
+#~ msgid "All Species"
+#~ msgstr "Todas las Especies"
+
+#~ msgid "View Specie"
+#~ msgstr "Ver Especie"
+
+#~ msgid "Search Species"
+#~ msgstr "Buscar Especies"
+
+#~ msgid "No species found"
+#~ msgstr "No se han encontrado Especies"
+
+#~ msgid "No species found in Trash"
+#~ msgstr "No se han encontrado Especies en la papelera"
+
+#~ msgid "Species"
+#~ msgstr "Especies"
+
+#~ msgid "Enarbolador"
+#~ msgstr "Enarbolador"
+
+#~ msgid "Add New Enarbolador"
+#~ msgstr "Añadir nuevo Enarbolador"
+
+#~ msgid "Edit Enarbolador"
+#~ msgstr "Editar Enarbolador"
+
+#~ msgid "New Enarbolador"
+#~ msgstr "Nuevo Enarbolador"
+
+#~ msgid "All Enarbolador"
+#~ msgstr "Todos los Enarboladores"
+
+#~ msgid "View Enarbolador"
+#~ msgstr "Ver Enarbolador"
+
+#~ msgid "Search Enarbolador"
+#~ msgstr "Buscar Enarbolador"
+
+#~ msgid "No Enarbolador found"
+#~ msgstr "No se han encontrado Enarboladores"
+
+#~ msgid "No Enarbolador found in Trash"
+#~ msgstr "No se han encontrado Enarboladores en la papelera"
+
+#~ msgid "Datos del árbol"
+#~ msgstr "Datos del árbol"
+
+#~ msgid "Datos de la especie"
+#~ msgstr "Datos de la especie"
+
+#~ msgid "Datos del enarbolador"
+#~ msgstr "Datos del enarbolador"
+
+#~ msgid "Imagen de fondo"
+#~ msgstr "Imagen de fondo"
+
+#~ msgid "Galería de fotos"
+#~ msgstr "Galería de fotos"
+
+#~ msgid "<p>Dirección web del enarbolador.</p>"
+#~ msgstr "<p>Dirección web del enarbolador.</p>"
+
+#~ msgid ""
+#~ "<p>Seleccione una imagen del listado para utilizar como imagen de fondo. "
+#~ "Si no encuentra la imagen necesitada, puede añadirla en la opción "
+#~ "MULTIMEDIA del menú de administración.</p>"
+#~ msgstr ""
+#~ "<p>Seleccione una imagen del listado para utilizar como imagen de fondo. "
+#~ "Si no encuentra la imagen necesitada, puede añadirla en la opción "
+#~ "MULTIMEDIA del menú de administración.</p>"
+
+#~ msgid "<p>Nombre científico de la especie.</p>"
+#~ msgstr "<p>Nombre científico de la especie.</p>"
+
+#~ msgid ""
+#~ "<p>Seleccione el <i>Enarbolador</i>, correspondiente a esta ficha, del "
+#~ "desplegable que aparece a continuación. Si no encuentra el "
+#~ "<i>Enarbolador</i>, deberá crearlo añadiendo una nueva entrada de tipo "
+#~ "ENARBOLADOR.</p>"
+#~ msgstr ""
+#~ "<p>Seleccione el <i>Enarbolador</i>, correspondiente a esta ficha, del "
+#~ "desplegable que aparece a continuación. Si no encuentra el "
+#~ "<i>Enarbolador</i>, deberá crearlo añadiendo una nueva entrada de tipo "
+#~ "ENARBOLADOR.</p>"
+
+#~ msgid ""
+#~ "<p>Seleccione la especie corresponiente al árbol del listado que aparece "
+#~ "a continuación. Si la especie no se encuentra en el listado, deberá "
+#~ "añadirla previamente creando una nueva entrada de tipo Especie</p>"
+#~ msgstr ""
+#~ "<p>Seleccione la especie corresponiente al árbol del listado que aparece "
+#~ "a continuación. Si la especie no se encuentra en el listado, deberá "
+#~ "añadirla previamente creando una nueva entrada de tipo Especie</p>"
+
+#~ msgid "<p>Dirección en la que se encuentra el árbol</p>"
+#~ msgstr "<p>Dirección en la que se encuentra el árbol</p>"
+
+#~ msgid ""
+#~ "<p>Seleccione la galería de fotografías que acompaña a la ficha. Si no "
+#~ "encuentra la galería correspondiente, créela en la sección GALERIA</p>"
+#~ msgstr ""
+#~ "<p>Seleccione la galería de fotografías que acompaña a la ficha. Si no "
+#~ "encuentra la galería correspondiente, créela en la sección GALERIA</p>"
+
+#, fuzzy
+#~ msgid "Ninguna"
+#~ msgstr "Nada encontrado"
+
+#~ msgid "Fotografías"
+#~ msgstr "Fotografías"
+
+#~ msgid "OTROS ENARBOLADOS SIMILARES:"
+#~ msgstr "OTROS ENARBOLADOS SIMILARES:"
+
+#~ msgid "ENARBOLACIONES:"
+#~ msgstr "ENARBOLACIONES:"
+
+#~ msgid "<li>No hay resultados que coincidan con la búsqueda.</li>"
+#~ msgstr "<li>No hay resultados que coincidan con la búsqueda.</li>"
+
+#~ msgid "Especie"
+#~ msgstr "Especie"
+
+#~ msgid "Enarbolado por:"
+#~ msgstr "Enarbolado por:"
+
+#~ msgid "Enarbolado por"
+#~ msgstr "Enarbolado por"
+
+#~ msgid "+ info"
+#~ msgstr "+ info"
+
+#~ msgid "Daily Archives: %s"
+#~ msgstr "Archivos diarios: %s"
+
+#~ msgid "Monthly Archives: %s"
+#~ msgstr "Archivos mensuales: %s"
+
+#~ msgid "Yearly Archives: %s"
+#~ msgstr "Archivos anuales: %s"
+
+#~ msgid "Blog Archives"
+#~ msgstr "Archivo"
+
+#~ msgid "Author Archives: %s"
+#~ msgstr "Archivos del autor: %s"
+
+#~ msgid "About %s"
+#~ msgstr "Acerca de %s"
+
+#~ msgid "Image"
+#~ msgstr "Imagen"
+
+#~ msgid "Reply"
+#~ msgstr "Respuesta"
+
+#~ msgid ""
+#~ "<a href=\"%1$s\" rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%2"
+#~ "$s\" pubdate>%3$s</time></a><span class=\"by-author\"> <span class=\"sep"
+#~ "\"> by </span> <span class=\"author vcard\"><a class=\"url fn n\" href=\"%"
+#~ "4$s\" title=\"%5$s\" rel=\"author\">%6$s</a></span></span>"
+#~ msgstr ""
+#~ "<a href=\"%1$s\" rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%2"
+#~ "$s\" pubdate>%3$s</time></a><span class=\"by-author\"> <span class=\"sep"
+#~ "\"> by </span> <span class=\"author vcard\"><a class=\"url fn n\" href=\"%"
+#~ "4$s\" title=\"%5$s\" rel=\"author\">%6$s</a></span></span>"
+
+#~ msgid "<strong>1</strong> Reply"
+#~ msgstr "<strong>1</strong> Respuesta"
+
+#~ msgid "<strong>%</strong> Replies"
+#~ msgstr "<strong>%</strong> Respuestas"
+
+#~ msgid "Link"
+#~ msgstr "Enlace"
+
+#~ msgid "Status"
+#~ msgstr "Estado"
+
+#~ msgid "Upload recording"
+#~ msgstr "Añadir grabación"
+
+#~ msgid "Secondary Sidebar"
+#~ msgstr "Barra lateral secundaria"
+
+#~ msgid "An optional widget area for your site"
+#~ msgstr "Area opcional para Widget en tu página"
+
+#~ msgid "Footer Area "
+#~ msgstr "Area de pié de página"
+
+#~ msgid "An optional widget area for your site footer"
+#~ msgstr "Area opcional para Widget a pié de página"
+
+#~ msgid "Footer Area Three"
+#~ msgstr "Area de pié de página tres"
+
+#~ msgid "%s Theme Options"
+#~ msgstr "Opciones del Theme %s"
+
+#~ msgid "Theme Options"
+#~ msgstr "Opciones del Theme"
+
+#, fuzzy
+#~ msgid "Links"
+#~ msgstr "Enlace"
+
+#~ msgid "Title:"
+#~ msgstr "Título:"
+
+#~ msgid "SoundMap"
+#~ msgstr "Mapa Sonoro"
+
+#~ msgid "&larr; Previous"
+#~ msgstr "&larr; Anterior"
+
+#~ msgid ""
+#~ "<span class=\"meta-prep meta-prep-entry-date\">Published </span> <span "
+#~ "class=\"entry-date\"><abbr class=\"published\" title=\"%1$s\">%2$s</"
+#~ "abbr></span> at <a href=\"%3$s\" title=\"Link to full-size image\">%4$s "
+#~ "&times; %5$s</a> in <a href=\"%6$s\" title=\"Return to %7$s\" rel="
+#~ "\"gallery\">%7$s</a>"
+#~ msgstr ""
+#~ "<span class=\"meta-prep meta-prep-entry-date\">Publicado </span> <span "
+#~ "class=\"entry-date\"><abbr class=\"published\" title=\"%1$s\">%2$s</"
+#~ "abbr></span> at <a href=\"%3$s\" title=\"Link to full-size image\">%4$s "
+#~ "&times; %5$s</a> en <a href=\"%6$s\" title=\"Return to %7$s\" rel="
+#~ "\"gallery\">%7$s</a>"
+
+#, fuzzy
+#~ msgid "Tags"
+#~ msgstr "Páginas:"
+
+#, fuzzy
+#~ msgid "Categories"
+#~ msgstr "Categorías más utilizadas"
+
+#~ msgid ""
+#~ "Some themes provide customization options that are grouped together on a "
+#~ "Theme Options screen. If you change themes, options may change or "
+#~ "disappear, as they are theme-specific. Your current theme, Twenty Eleven, "
+#~ "provides the following Theme Options:"
+#~ msgstr ""
+#~ "Algunos themes ofrecen opciones de personalización que se muestran "
+#~ "agrupados en la ventana de opciones de Theme. Al ser específicas de cada "
+#~ "Theme, si cambias themes, las opciones pueden cambiar o desaparecer. Tu "
+#~ "Theme actual,  SoundMap, ofrece las siguientes Opciones de Tema:"
+
+#~ msgid "For more information:"
+#~ msgstr "Para más información:"
+
+#, fuzzy
+#~ msgid "Default color: %s"
+#~ msgstr "Resultado de la búsqueda: %s"
+
+#, fuzzy
+#~ msgid "0 <span class=\"reply\">comments &rarr;</span>"
+#~ msgstr "Siguiente <span class=\"meta-nav\">&rarr;</span>"
+
+#, fuzzy
+#~ msgid "1 <span class=\"reply\">comment &rarr;</span>"
+#~ msgstr "Siguiente <span class=\"meta-nav\">&rarr;</span>"
+
+#, fuzzy
+#~ msgid "% <span class=\"reply\">comments &rarr;</span>"
+#~ msgstr "Siguiente <span class=\"meta-nav\">&rarr;</span>"
+
+#~ msgid "Number of posts to show:"
+#~ msgstr "Número de entradas a mostrar:"
+
+#, fuzzy
+#~ msgid "Leave a Reply"
+#~ msgstr "Dejar una respuesta"
