@@ -30,8 +30,10 @@ To show the map, you only have use the theme tag <b>the_map</b> as follows:
 in the template page you want to show the map. More information about this and more theme tags in the documentation.
 
 It is important that inside the template file you include this HTML line:
- 	<div class="map_canvas"></div> 
+ 	<?php the_map("map_canvas",true); ?>
 for rendering the map.
+
+<b>For more info, look in the WIKI pages.</b>
 
 Examples
 ----------
